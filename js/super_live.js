@@ -2,7 +2,8 @@ const player = document.getElementById('videoMaster');
 const gallery = document.getElementById('gallery');
 
 // 1. INSIRA O ID DO SEU CANAL AQUI (Começa com UC...)
-const MY_CHANNEL_ID = 'UCRBaoBV9nCLePTqot4jvYUA';
+//const MY_CHANNEL_ID = 'UCRBaoBV9nCLePTqot4jvYUA';
+const MY_CHANNEL_ID = 'UCa0iVbkKOJfxJq7oEwLBxRA';
 
 async function initGallery() {
     try {
