@@ -2,7 +2,7 @@ const player = document.getElementById('videoMaster');
 const gallery = document.getElementById('gallery');
 
 // 1. IDs das Plataformas
-const MY_CHANNEL_ID = 'UCZiYbVptd3PVPf4f6eR6UaQ';
+const MY_CHANNEL_ID = 'UCppC7vpjkmpfwTgP8GY4RAw';
 const TWITCH_USER = 'lordzeddbr';
 const KICK_USER = 'lordzeddbr';
 
