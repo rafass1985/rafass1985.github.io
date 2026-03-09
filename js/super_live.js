@@ -1,18 +1,18 @@
 const player = document.getElementById('videoMaster');
 const gallery = document.getElementById('gallery');
 
-// 1. INSIRA O ID DO SEU CANAL AQUI (Começa com UC...)
-//const MY_CHANNEL_ID = 'UCRBaoBV9nCLePTqot4jvYUA';
+// 1. IDs das Plataformas
 const MY_CHANNEL_ID = 'UCa0iVbkKOJfxJq7oEwLBxRA';
+const TWITCH_USER = 'lordzeddbr';
+const KICK_USER = 'lordzeddbr';
 
 async function initGallery() {
     try {
-        // Inicia o player principal com a live automática do canal
-        updatePlayer();
+        // Inicia o player principal com a live automática do YouTube
+        updatePlayer('youtube');
 
         const response = await fetch(`lives.txt?v=${new Date().getTime()}`);
         const data = await response.text();
-
         const lines = data.split('\n').filter(line => line.trim() !== '');
 
         lines.forEach((line, index) => {
@@ -36,7 +36,8 @@ async function initGallery() {
             `;
 
             card.onclick = () => {
-                updatePlayer(cleanID);
+                // Ao clicar na galeria, forçamos o embed do YouTube com o ID do vídeo
+                updatePlayer('youtube_video', cleanID);
                 document.querySelectorAll('.video-card').forEach(c => c.classList.remove('active'));
                 card.classList.add('active');
             };
@@ -50,17 +51,45 @@ async function initGallery() {
 }
 
 /**
- * Atualiza o player principal.
- * Se não receber um ID, carrega a live atual do canal automaticamente.
+ * Atualiza o player principal com base na plataforma ou ID de vídeo
  */
-function updatePlayer(id = null) {
-    if (!id) {
-        // URL especial do YouTube que sempre aponta para a live ativa do canal
-        player.src = `https://www.youtube.com/embed/live_stream?channel=${MY_CHANNEL_ID}&autoplay=1&mute=1&enablejsapi=1`;
-    } else {
-        // Carrega um vídeo específico da galeria (lives.txt)
-        player.src = `https://www.youtube.com/embed/${id}?autoplay=1&mute=0&enablejsapi=1`;
+function updatePlayer(type = 'youtube', id = null) {
+    let newSrc = "";
+
+    switch (type) {
+        case 'youtube':
+            // Sempre aponta para a live ativa do canal
+            newSrc = `https://www.youtube.com/embed/live_stream?channel=${MY_CHANNEL_ID}&autoplay=1&mute=1&enablejsapi=1`;
+            break;
+        case 'youtube_video':
+            // Vídeo específico do lives.txt
+            newSrc = `https://www.youtube.com/embed/${id}?autoplay=1&mute=0&enablejsapi=1`;
+            break;
+        case 'twitch':
+            // Embed da Twitch (parent é necessário para segurança)
+            newSrc = `https://player.twitch.tv/?channel=${TWITCH_USER}&parent=${window.location.hostname}&autoplay=true`;
+            break;
+        case 'kick':
+            // Embed do Kick
+            newSrc = `https://player.kick.com/${KICK_USER}`;
+            break;
     }
+
+    if (newSrc) player.src = newSrc;
 }
+
+// Vincula os botões do HTML à função de troca
+document.addEventListener('DOMContentLoaded', () => {
+    // Seleciona os botões pelos IDs (ou você pode adicionar IDs no HTML se preferir)
+    // Exemplo usando seletores de texto caso não queira mudar o HTML:
+    const buttons = document.querySelectorAll('.stream-selector button, .buttons-container button');
+    
+    buttons.forEach(btn => {
+        const text = btn.innerText.toLowerCase();
+        if (text.includes('youtube')) btn.onclick = () => updatePlayer('youtube');
+        if (text.includes('twitch')) btn.onclick = () => updatePlayer('twitch');
+        if (text.includes('kick')) btn.onclick = () => updatePlayer('kick');
+    });
+});
 
 initGallery();
