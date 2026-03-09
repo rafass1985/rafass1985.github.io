@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TransAmazônica</title>
+    <link rel="stylesheet" href="../css/normalize.css">
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #1a1a1a;
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 { text-align: center;color: #ff0000;}
+        a { color: pink;}
+        /* Container organizador lives*/
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px,1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .video-card {
+            background: #333;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .video-container {
+            position:relative;
+            padding-bottom: 56.25%;
+            height: 0;
+        }
+        .video-container iframe {
+            position:absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        .video-info {
+            padding: 15px;
+        }
+        .video-info h3 {
+            margin: 0 0 10px 0;font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lives TransAmazônica</h1>
+    <p><a href="ultimate_player.html">Ultimate Player</a></p>
+    <div class="video-grid">
+
+        <div class="video-card">
+            <div class="video-container">
+                <iframe 
+                    src="https://www.youtube.com/embed/WTGxo4GrLXQ?autoplay=0&mute=1"
+                    allow="autoplay;encrypted-media;clipboard-write;picture-in-picture"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <div class="video-info">
+                <h3>Live gORDOx</h3>
+            </div>
+        </div>
+
+        <div class="video-card">
+            <div class="video-container">
+                <iframe 
+                    src="https://www.youtube.com/embed/N0lqE1yAduE?autoplay=0&mute=1" 
+                    allow="autoplay;encrypted-media;clipboard-write;picture-in-picture"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <div class="video-info">
+                <h3>Live Rato Borrachudo</h3>
+            </div>
+        </div>
+        <div class="video-card">
+            <div class="video-container">
+                <iframe 
+                    src="https://www.youtube.com/embed/xUV-WtgFSAE?autoplay=0&mute=1" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerpolicy="strict-origin-when-cross-origin" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <div class="video-info">
+                <h3>Live ACF</h3>
+            </div>
+        </div>
+        <div class="video-card">
+            <div class="video-container">
+                <iframe 
+                    src="https://www.youtube.com/embed/-W_F6_G5a9c?autoplay=0&mute=1" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerpolicy="strict-origin-when-cross-origin" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <div class="video-info">
+                <h3>Live Richard Rasmussen</h3>
+            </div>
+        </div>
+        <div class="video-card">
+            <div class="video-container">
+                <iframe 
+                    src="https://www.youtube.com/embed/mzgm4q-lzoc?autoplay=0&mute=1" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerpolicy="strict-origin-when-cross-origin" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <div class="video-info">
+                <h3>Live Cariani</h3>
+            </div>
+        </div>
+        <div class="video-card">
+            <div class="video-container">
+                <iframe 
+                    src="https://www.youtube.com/embed/aXDxINGvacI?autoplay=0&mute=1" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerpolicy="strict-origin-when-cross-origin" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <div class="video-info">
+                <h3>Live Inverno na Amazonia</h3>
+            </div>
+        </div>
+
+        
+
+<!-- Div template
+ 
+<div class="video-card">
+            <div class="video-container">
+                <iframe 
+                    src="https://www.youtube.com/embed/VIDEO_ID?autoplay=0&mute=1" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerpolicy="strict-origin-when-cross-origin" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <div class="video-info">
+                <h3>Live ACF</h3>
+            </div>
+        </div>
+
+-->
+    </div>
+</body>
+</html>
