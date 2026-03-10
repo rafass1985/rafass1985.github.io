@@ -3,44 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LordZeddBR - Multistream</title>
+    <title>LordZeddBR - Live Dashboard</title>
     <link rel="stylesheet" href="../css/normalize.css">
     <link rel="stylesheet" href="../css/player.css">
-    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header class="top-bar">
-        <div class="logo">LordZeddBR Live</div>
+        <div class="header-left">
+            <div class="logo-container">
+                <img src="caminho_para_seu_logo.png" alt="Logo" class="main-logo">
+                <span class="brand-name">LordZeddBR</span>
+            </div>
+            <div class="social-trigger">SOCIAIS >></div>
+        </div>
         
-        <nav class="stream-selector">
-            <button onclick="updatePlayer('youtube')">YouTube Live</button>
-            <button onclick="updatePlayer('twitch')">Twitch</button>
-            <button onclick="updatePlayer('kick')">Kick</button>
-        </nav>
-
-        <div class="view-controls">
-            <label class="switch-label">
-                <input type="checkbox" id="togglePlayer" checked> Player
-            </label>
-            <label class="switch-label">
-                <input type="checkbox" id="toggleChat" checked> Chat
-            </label>
+        <div class="header-right">
+            <span class="players-label">PLAYERS:</span>
+            <nav class="stream-selector">
+                <button type="button" onclick="updatePlayer('youtube')">YOUTUBE</button>
+                <button type="button" onclick="updatePlayer('twitch')">TWITCH</button>
+                <button type="button" onclick="updatePlayer('kick')">KICK</button>
+            </nav>
         </div>
     </header>
 
-    <div class="main-container">
-        <section id="playerContainer" class="video-section">
+    <main class="main-container">
+        <section class="video-section">
             <div class="video-wrapper">
                 <iframe id="videoMaster" src="" allowfullscreen allow="autoplay; encrypted-media"></iframe>
             </div>
-                    </section>
+        </section>
 
-        <aside id="chatContainer" class="chat-section">
-            <iframe id="chatFrame" src="SUA_URL_DO_CHAT_AQUI"></iframe>
+        <aside class="chat-section">
+            <iframe id="chatFrame" src="SUA_URL_DE_CHAT_AQUI"></iframe>
         </aside>
-    </div>
+    </main>
 
-    <script src="../js/super_live.js"></script>
+    <footer class="main-footer">
+        LordZeddBR - 2026 - Todos os direitos do site reservados - O personagem Lord Zedd BR é uma homenagem ao personagem original pertencente a Saban, sem nenhum vínculo com esse canal.
+    </footer>
+
+    <script src="../js/ultimate.player.js"></script>
 </body>
 </html>
