@@ -1,43 +1,63 @@
-:root {
-    --bg-color: #000;
-    --sidebar-color: #111;
-    --accent-color: #ff4d3d;
-    --text-color: #fff;
-}
-
-/* Exemplo de Tema Retro */
-.theme-retro {
-    --bg-color: #2b2b2b;
-    --sidebar-color: #1a1a1a;
-    --accent-color: #008ba3;
-    --text-color: #00ff00; 
-}
-
+/* Layout Base */
 body {
     display: flex;
+    flex-direction: column;
     height: 100vh;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    margin: 0;
-    font-family: 'Courier New', Courier, monospace;
+    overflow: hidden;
 }
 
-.sidebar {
-    width: 250px;
-    background: var(--sidebar-color);
-    padding: 20px;
-    border-right: 2px solid var(--accent-color);
-}
-
-.main-content {
+/* Barra Superior */
+.top-bar {
+    height: 60px;
+    background: #111;
+    border-bottom: 2px solid var(--accent-color);
     display: flex;
-    flex: 1;
-    padding: 10px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    z-index: 100;
+}
+
+.logo {
+    color: var(--accent-color);
+    font-weight: bold;
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+}
+
+.stream-selector {
+    display: flex;
     gap: 10px;
 }
 
-.video-container { flex: 3; transition: 0.3s; }
-.chat-wrapper { flex: 1; min-width: 300px; border-left: 2px solid var(--accent-color); }
+.view-controls {
+    display: flex;
+    gap: 20px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
 
-/* Esconder elementos conforme checkbox */
+/* Estilo dos Botões da Top Bar */
+.stream-selector button {
+    background: transparent;
+    border: 1px solid var(--accent-color);
+    color: #fff;
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.stream-selector button:hover {
+    background: var(--accent-color);
+    color: #000;
+}
+
+/* Classes de Utilidade */
 .hidden { display: none !important; }
+
+/* Ajuste do container para ocupar o resto da tela */
+.main-container {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
