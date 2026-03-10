@@ -1,61 +1,80 @@
-/* Configurações do Dropdown */
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropbtn {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: white;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #fff; /* Fundo branco como na imagem */
-    min-width: 200px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 100;
-    border-radius: 15px; /* Bordas arredondadas da imagem */
-    margin-top: 10px;
-    padding: 10px 0;
-}
-
-/* Links dentro do menu */
-.dropdown-content a {
-    color: #d1005d; /* Cor rosa/vinho da imagem */
-    padding: 12px 16px;
-    text-decoration: none;
+body {
+    background-color: #000;
+    color: #fff;
+    margin: 0;
     display: flex;
+    flex-direction: column;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+}
+
+/* Header / Top Bar */
+.top-bar {
+    background-color: #aa0000; /* Vermelho escuro */
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 10px;
-    font-weight: 500;
-    transition: background 0.2s;
+    padding: 0 20px;
+    border-bottom: 3px solid #000;
 }
 
-.dropdown-content a:hover {
-    background-color: #f1f1f1;
-    border-radius: 8px;
+.header-left { display: flex; align-items: center; gap: 40px; }
+.brand-name { font-size: 1.8rem; font-weight: bold; }
+.social-trigger { font-weight: bold; cursor: pointer; }
+
+.header-right { display: flex; align-items: center; gap: 15px; }
+.players-label { font-size: 0.8rem; font-weight: bold; }
+
+.stream-selector button {
+    background-color: #ff0000; /* Vermelho vibrante */
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: 0.3s;
 }
 
-/* Mostrar ao passar o mouse */
-.dropdown:hover .dropdown-content {
-    display: block;
+.stream-selector button:hover { background-color: #fff; color: #000; }
+
+/* Main Content Area */
+.main-container {
+    display: flex;
+    flex: 1;
+    padding: 30px;
+    gap: 30px;
+    background-color: #000;
 }
 
-/* Ícones dentro do menu */
-.nav-icon {
-    width: 20px;
-    height: 20px;
+.video-section { flex: 2.5; }
+.video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    background-color: #008ba3; /* Cor do placeholder da sua imagem */
 }
 
-.arrow {
-    font-size: 0.8rem;
-    margin-left: 5px;
+.video-wrapper iframe {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    border: none;
+}
+
+.chat-section {
+    flex: 1;
+    background-color: #008ba3;
+    border: none;
+}
+
+#chatFrame { width: 100%; height: 100%; border: none; }
+
+/* Footer */
+.main-footer {
+    background-color: #aa0000;
+    color: #fff;
+    font-size: 0.7rem;
+    padding: 10px;
+    text-align: center;
 }
