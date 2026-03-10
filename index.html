@@ -3,126 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LordZeddBR - Multistream</title>
+    <title>LordZeddBR - Live Dashboard</title>
     <link rel="stylesheet" href="../css/normalize.css">
     <link rel="stylesheet" href="../css/player.css">
-    <style>
-        /* Estilos específicos para o novo layout de colunas */
-        body {
-            background-color: #000;
-            color: #fff;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-        }
-
-        .main-container {
-            display: flex;
-            flex: 1;
-            gap: 15px;
-            padding: 15px;
-            overflow: hidden;
-        }
-
-        /* Lado Esquerdo: Player e Galeria */
-        .video-section {
-            flex: 3;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 */
-            height: 0;
-            background: #000;
-            border: 2px solid #008ba3; /* Cor do teu rascunho */
-        }
-
-        #videoMaster {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            border: none;
-        }
-
-        /* Botões de Seleção */
-        .stream-selector {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-bottom: 10px;
-        }
-
-        .stream-selector button {
-            background: #ff4d3d; /* Vermelho do rascunho */
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            color: #000;
-            font-weight: bold;
-            cursor: pointer;
-            text-transform: uppercase;
-            transition: 0.3s;
-        }
-
-        .stream-selector button:hover {
-            transform: scale(1.05);
-            background: #fff;
-        }
-
-        /* Lado Direito: Chat */
-        .chat-section {
-            flex: 1;
-            min-width: 300px;
-            background: #111;
-            border: 2px solid #008ba3;
-            display: flex;
-            flex-direction: column;
-        }
-
-        #chatFrame {
-            width: 100%;
-            flex: 1;
-            border: none;
-        }
-
-        /* Responsividade para telemóveis */
-        @media (max-width: 768px) {
-            .main-container { flex-direction: column; }
-            .chat-section { height: 400px; }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="theme-retro">
 
-    <header style="padding: 10px 20px;">
-        <h1 style="margin:0; color:#008ba3;">LordZeddBR Live</h1>
+    <header class="top-bar">
+        <div class="logo">LordZeddBR</div>
+        
+        <nav class="stream-selector">
+            <button type="button" onclick="updatePlayer('youtube')">YouTube</button>
+            <button type="button" onclick="updatePlayer('twitch')">Twitch</button>
+            <button type="button" onclick="updatePlayer('kick')">Kick</button>
+        </nav>
+
+        <div class="view-controls">
+            <label class="switch">
+                <input type="checkbox" id="togglePlayer" checked>
+                <span class="slider"></span> Player
+            </label>
+            <label class="switch">
+                <input type="checkbox" id="toggleChat" checked>
+                <span class="slider"></span> Chat
+            </label>
+        </div>
     </header>
 
     <div class="main-container">
-        
-        <section class="video-section">
-            
+        <section id="playerSection" class="video-section">
             <div class="video-wrapper">
                 <iframe id="videoMaster" src="" allowfullscreen allow="autoplay; encrypted-media"></iframe>
             </div>
-
-            <nav class="stream-selector">
-                <button type="button" onclick="updatePlayer('youtube')">YouTube</button>
-                <button type="button" onclick="updatePlayer('twitch')">Twitch</button>
-                <button type="button" onclick="updatePlayer('kick')">Kick</button>
-            </nav>
 
             <div id="gallery" class="video-grid">
                 </div>
         </section>
 
-        <aside class="chat-section">
-            <iframe id="chatFrame" src="URL_DO_TEU_CHAT_AQUI"></iframe>
+        <aside id="chatSection" class="chat-section">
+            <iframe id="chatFrame" src="about:blank"></iframe>
         </aside>
-
     </div>
 
     <script src="../js/super_live.js"></script>
