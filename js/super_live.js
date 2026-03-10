@@ -10,7 +10,8 @@ function updatePlayer(type = 'youtube') {
 
     switch (type) {
         case 'youtube':
-            newSrc = `https://www.youtube.com/embed/live_stream?channel=${MY_CHANNEL_ID}&autoplay=1&mute=1`;
+            // Esta URL redireciona para a Live ON ou para o vídeo mais recente/destaque se estiver OFF
+            newSrc = `https://www.youtube.com/embed/live_stream?channel=${MY_CHANNEL_ID}&autoplay=1&mute=1&enablejsapi=1`;
             break;
         case 'twitch':
             newSrc = `https://player.twitch.tv/?channel=${TWITCH_USER}&parent=${window.location.hostname}&autoplay=true`;
@@ -23,15 +24,13 @@ function updatePlayer(type = 'youtube') {
     if (newSrc) player.src = newSrc;
 }
 
-// Inicia com o YouTube por padrão
-window.onload = () => updatePlayer('youtube');
-
-// Fecha o dropdown de sociais ao clicar fora dele
+// Fechar dropdown ao clicar fora
 document.addEventListener('click', function (event) {
     const dropdown = document.querySelector('.social-dropdown');
-    
-    // Se o clique não foi dentro do dropdown e o dropdown está aberto, fecha ele
     if (dropdown && !dropdown.contains(event.target)) {
         dropdown.removeAttribute('open');
     }
 });
+
+// Inicia com o YouTube (Live ou vídeo mais recente) por padrão
+window.onload = () => updatePlayer('youtube');
