@@ -1,54 +1,45 @@
 const player = document.getElementById('videoMaster');
-const gallery = document.getElementById('gallery');
 
-async function initGallery() {
-    try {
-        const response = await fetch(`lives.txt?v=${new Date().getTime()}`);
-        const data = await response.text();
+// IDs das tuas plataformas
+const MY_CHANNEL_ID = 'UCRBaoBV9nCLePTqot4jvYUA'; // Confirma se este é o ID correto (UC...)
+const VIDEO_RECENTE_ID = 'JJ5hNieBWDs'; // Um vídeo para aparecer quando estiveres offline
+const TWITCH_USER = 'lordzeddbr';
+const KICK_USER = 'lordzeddbr';
 
-        const lines = data.split('\n').filter(line => line.trim() !== '');
+function updatePlayer(type = 'youtube') {
+    let newSrc = "";
 
-        lines.forEach((line, index) => {
-            const [id, title] = line.split(',');
-            const cleanID = id.trim();
-            const cleanTitle = title ? title.trim() : `Live ${index + 1}`;
+    switch (type) {
+        case 'youtube':
+            // Tenta a live. Se falhar, o YouTube mostra o ecrã de "offline" ou o vídeo mais recente.
+            newSrc = `https://www.youtube.com/embed/live_stream?channel=${MY_CHANNEL_ID}&autoplay=1&mute=1&enablejsapi=1`;
+            
+            // DICA: Se a URL acima falhar totalmente, substitui por:
+            // newSrc = `https://www.youtube.com/embed/${VIDEO_RECENTE_ID}?autoplay=1&mute=1`;
+            break;
+            
+        case 'twitch':
+            newSrc = `https://player.twitch.tv/?channel=${TWITCH_USER}&parent=${window.location.hostname}&autoplay=true`;
+            break;
+            
+        case 'kick':
+            newSrc = `https://player.kick.com/${KICK_USER}`;
+            break;
+    }
 
-            // criar o card
-            const card = document.createElement('div');
-            card.className = 'video-card';
-            if (index === 0) card.classList.add('active');
-
-            card.innerHTML = `
-                <div class="thumb-video-container">
-                    <iframe
-                        src="https://www.youtube.com/embed/${cleanID}?autoplay=1&mute=1&controls=0&modestbranding=1&showinfo=0&rel=0&iv_load_policy=3"
-                        allow="autoplay; encrypted-media"
-                        loading="lazy">
-                    </iframe>
-                    <div class="click-overlay"></div>
-                </div>
-                <span class="video-title">${cleanTitle}</span>
-            `;
-
-            card.onclick = () => {
-                updatePlayer(cleanID);
-
-                document.querySelectorAll('.video-card').forEach(c => c.classList.remove('active'));
-                card.classList.add('active');
-            };
-
-            gallery.appendChild(card);
-
-            if (index === 0) updatePlayer(cleanID);
-        });
-    } catch (err) {
-        console.error("Erro crítico:", err);
-        gallery.innerHTML = "<p>⚠️ Use o Live Server para carregar o arquivo .txt";
+    if (newSrc) {
+        player.src = newSrc;
+        console.log("Player atualizado para:", type);
     }
 }
 
-function updatePlayer(id) {
-    player.src = `https://www.youtube.com/embed/${id}?autoplay=1&mute=1&enablejsapi=1`
-}
+// Fechar o dropdown de sociais ao clicar fora
+document.addEventListener('click', (event) => {
+    const dropdown = document.querySelector('.social-dropdown');
+    if (dropdown && !dropdown.contains(event.target)) {
+        dropdown.removeAttribute('open');
+    }
+});
 
-initGallery();
+// Inicia com o YouTube por padrão
+window.onload = () => updatePlayer('youtube');
