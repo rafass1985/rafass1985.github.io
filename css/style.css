@@ -5,12 +5,12 @@
     --text-color: #fff;
 }
 
-/* Exemplo de Tema Retro (inspirado no Spidium) */
+/* Exemplo de Tema Retro */
 .theme-retro {
     --bg-color: #2b2b2b;
     --sidebar-color: #1a1a1a;
     --accent-color: #008ba3;
-    --text-color: #00ff00; /* Estilo Matrix/Console */
+    --text-color: #00ff00; 
 }
 
 body {
