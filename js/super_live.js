@@ -25,3 +25,13 @@ function updatePlayer(type = 'youtube') {
 
 // Inicia com o YouTube por padrão
 window.onload = () => updatePlayer('youtube');
+
+// Fecha o dropdown de sociais ao clicar fora dele
+document.addEventListener('click', function (event) {
+    const dropdown = document.querySelector('.social-dropdown');
+    
+    // Se o clique não foi dentro do dropdown e o dropdown está aberto, fecha ele
+    if (dropdown && !dropdown.contains(event.target)) {
+        dropdown.removeAttribute('open');
+    }
+});
