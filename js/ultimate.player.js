@@ -18,7 +18,7 @@ function updatePlayer(type = 'youtube') {
             newSrc = `https://www.youtube.com/embed/live_stream?channel=${MY_CHANNEL_ID}&autoplay=1&mute=1&enablejsapi=1`;
             break;
 
-        case 'youtube_uploads':
+        case 'video':
             /**
              * Caso o redirecionamento acima não funcione como você quer,
              * este link força a abertura do seu vídeo mais recente 
@@ -39,7 +39,8 @@ function updatePlayer(type = 'youtube') {
 }
 
  // Inicia com o YouTube por padrão
-window.onload = () => updatePlayer('youtube');
+//window.onload = () => updatePlayer('youtube');
+window.onload = () => updatePlayer('video');
 
 // Fecha o dropdown de sociais ao clicar fora dele
 document.addEventListener('click', function (event) {
