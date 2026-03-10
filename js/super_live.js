@@ -1,24 +1,38 @@
 const player = document.getElementById('videoMaster');
 const gallery = document.getElementById('gallery');
+const chatFrame = document.getElementById('chatFrame');
 
-// 1. IDs das Plataformas
-const MY_CHANNEL_ID = 'UCRBaoBV9nCLePTqot4jvYUA';
+// 1. Configurações de Identidade
+const MY_CHANNEL_ID = 'UCRBaoBV9nCLePTqot4jvYUA'; // Teu ID do YouTube
 const TWITCH_USER = 'lordzeddbr';
 const KICK_USER = 'lordzeddbr';
 
+// 2. URLs de Chat (Ajusta conforme necessário)
+const CHATS = {
+    youtube: `https://www.youtube.com/live_chat?v=ALGO&embed_domain=${window.location.hostname}`,
+    twitch: `https://www.twitch.tv/embed/${TWITCH_USER}/chat?parent=${window.location.hostname}`,
+    kick: `https://kick.com/lordzeddbr/chatroom` // Nota: Kick pode exigir métodos específicos de embed
+};
+
+/**
+ * Inicializa a Galeria e o Player Principal
+ */
 async function initGallery() {
     try {
-        // Inicia o player principal com a live automática do YouTube
+        // Começa sempre com a tua live do YouTube ativa
         updatePlayer('youtube');
 
+        // Carrega os vídeos antigos do ficheiro lives.txt
         const response = await fetch(`lives.txt?v=${new Date().getTime()}`);
         const data = await response.text();
         const lines = data.split('\n').filter(line => line.trim() !== '');
 
         lines.forEach((line, index) => {
             const [id, title] = line.split(',');
+            if(!id) return;
+
             const cleanID = id.trim();
-            const cleanTitle = title ? title.trim() : `Vídeo ${index + 1}`;
+            const cleanTitle = title ? title.trim() : `Live Antiga ${index + 1}`;
 
             const card = document.createElement('div');
             card.className = 'video-card';
@@ -36,7 +50,6 @@ async function initGallery() {
             `;
 
             card.onclick = () => {
-                // Ao clicar na galeria, forçamos o embed do YouTube com o ID do vídeo
                 updatePlayer('youtube_video', cleanID);
                 document.querySelectorAll('.video-card').forEach(c => c.classList.remove('active'));
                 card.classList.add('active');
@@ -45,51 +58,72 @@ async function initGallery() {
             gallery.appendChild(card);
         });
     } catch (err) {
-        console.error("Erro crítico:", err);
-        gallery.innerHTML = "<p>⚠️ Use o Live Server para carregar o arquivo .txt</p>";
+        console.error("Erro ao carregar galeria:", err);
+        if(gallery) gallery.innerHTML = "<p>⚠️ Erro ao carregar lives.txt</p>";
     }
 }
 
 /**
- * Atualiza o player principal com base na plataforma ou ID de vídeo
+ * Lógica de Troca de Player e Chat (Inspirado no Spidium)
  */
-function updatePlayer(type = 'youtube', id = null) {
-    let newSrc = "";
+function updatePlayer(type, id = null) {
+    let videoUrl = "";
+    let chatUrl = "";
 
     switch (type) {
         case 'youtube':
-            // Sempre aponta para a live ativa do canal
-            newSrc = `https://www.youtube.com/embed/live_stream?channel=${MY_CHANNEL_ID}&autoplay=1&mute=1&enablejsapi=1`;
+            videoUrl = `https://www.youtube.com/embed/live_stream?channel=${MY_CHANNEL_ID}&autoplay=1&mute=1&enablejsapi=1`;
+            chatUrl = CHATS.youtube;
             break;
         case 'youtube_video':
-            // Vídeo específico do lives.txt
-            newSrc = `https://www.youtube.com/embed/${id}?autoplay=1&mute=0&enablejsapi=1`;
+            videoUrl = `https://www.youtube.com/embed/${id}?autoplay=1&mute=0&enablejsapi=1`;
+            chatUrl = `https://www.youtube.com/live_chat?v=${id}&embed_domain=${window.location.hostname}`;
             break;
         case 'twitch':
-            // Embed da Twitch (parent é necessário para segurança)
-            newSrc = `https://player.twitch.tv/?channel=${TWITCH_USER}&parent=${window.location.hostname}&autoplay=true`;
+            videoUrl = `https://player.twitch.tv/?channel=${TWITCH_USER}&parent=${window.location.hostname}&autoplay=true`;
+            chatUrl = CHATS.twitch;
             break;
         case 'kick':
-            // Embed do Kick
-            newSrc = `https://player.kick.com/${KICK_USER}`;
+            videoUrl = `https://player.kick.com/${KICK_USER}`;
+            chatUrl = CHATS.kick;
             break;
     }
 
-    if (newSrc) player.src = newSrc;
+    if (videoUrl && player) player.src = videoUrl;
+    if (chatUrl && chatFrame) chatFrame.src = chatUrl;
 }
 
-// Vincula os botões do HTML à função de troca
+/**
+ * Listeners de Interface (Temas e Visibilidade)
+ */
 document.addEventListener('DOMContentLoaded', () => {
-    // Seleciona os botões pelos IDs (ou você pode adicionar IDs no HTML se preferir)
-    // Exemplo usando seletores de texto caso não queira mudar o HTML:
-    const buttons = document.querySelectorAll('.stream-selector button, .buttons-container button');
     
-    buttons.forEach(btn => {
-        const text = btn.innerText.toLowerCase();
-        if (text.includes('youtube')) btn.onclick = () => updatePlayer('youtube');
-        if (text.includes('twitch')) btn.onclick = () => updatePlayer('twitch');
-        if (text.includes('kick')) btn.onclick = () => updatePlayer('kick');
-    });
+    // Alternar Temas
+    const themeSelect = document.getElementById('themeSelect');
+    if(themeSelect) {
+        themeSelect.addEventListener('change', (e) => {
+            document.body.className = e.target.value;
+        });
+    }
+
+    // Mostrar/Esconder Chat
+    const toggleChat = document.getElementById('toggleChat');
+    if(toggleChat) {
+        toggleChat.addEventListener('change', (e) => {
+            const chatContainer = document.getElementById('chatContainer');
+            if(chatContainer) chatContainer.style.display = e.target.checked ? 'flex' : 'none';
+        });
+    }
+
+    // Mostrar/Esconder Player
+    const togglePlayer = document.getElementById('togglePlayer');
+    if(togglePlayer) {
+        togglePlayer.addEventListener('change', (e) => {
+            const playerContainer = document.getElementById('playerContainer');
+            if(playerContainer) playerContainer.style.display = e.target.checked ? 'block' : 'none';
+        });
+    }
 });
 
+// Inicializa tudo
 initGallery();
