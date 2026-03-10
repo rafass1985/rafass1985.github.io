@@ -3,27 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Em Construção - LordZeddBR</title>
+    <title>LordZeddBR - Live Panel</title>
+    <link rel="stylesheet" href="../css/normalize.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <main class="construction-container">
-        <div class="illustration">
-            <img src="https://img.freepik.com/vetores-premium/personagem-de-trabalhador-da-construcao-civil-em-fundo-branco_25030-39328.jpg" alt="Trabalhadores em construção">
+<body class="theme-retro"> <aside class="sidebar">
+        <div class="logo">LORD ZEDD</div>
+        
+        <div class="menu-group">
+            <h3>Plataformas</h3>
+            <button onclick="updatePlayer('youtube')">YouTube</button>
+            <button onclick="updatePlayer('twitch')">Twitch</button>
+            <button onclick="updatePlayer('kick')">Kick</button>
         </div>
 
-        <h1>Em construção</h1>
-        <p class="description">
-            Nosso site está em construção, estamos trabalhando muito para lhe dar a melhor experiência com este.
-        </p>
-
-        <div class="notify-section">
-            <p>Avise-me quando estiver pronto</p>
-            <form class="subscribe-form">
-                <input type="email" placeholder="EMAIL" required>
-                <button type="submit">ME AVISE</button>
-            </form>
+        <div class="menu-group">
+            <h3>Configurações</h3>
+            <label><input type="checkbox" id="toggleChat" checked> Mostrar Chat</label>
+            <label><input type="checkbox" id="togglePlayer" checked> Mostrar Player</label>
         </div>
+
+        <div class="menu-group">
+            <h3>Temas</h3>
+            <select id="themeSelect">
+                <option value="theme-retro">Retro</option>
+                <option value="theme-dark">Dark</option>
+                <option value="theme-light">Light</option>
+            </select>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <section id="playerContainer" class="video-container">
+            <div class="video-wrapper">
+                <iframe id="videoMaster" src="" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+            </div>
+            
+            <div id="gallery" class="video-grid"></div>
+        </section>
+
+        <section id="chatContainer" class="chat-wrapper">
+            <iframe id="chatFrame" src=""></iframe>
+        </section>
     </main>
+
+    <script src="../js/super_live.js"></script>
 </body>
 </html>
