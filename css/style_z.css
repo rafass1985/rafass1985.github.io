@@ -74,28 +74,23 @@ body {
 .header-right { display: flex; align-items: center; gap: 15px; }
 .players-label { font-size: 0.8rem; font-weight: bold; }
 
-/* Botão "Apagado": Mesma cor da .top-bar */
+/* 1. Definimos que a cor padrão dos botões é a mesma da faixa (apagado) */
 .stream-selector button {
-    background-color: #aa0000; /* Cor da faixa superior */
-    border: 1px solid rgba(255, 255, 255, 0.1); 
-    color: rgba(255, 255, 255, 0.4); /* Texto "apagado" */
-    padding: 10px 25px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-left: 10px;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
+    background-color: #aa0000; /* Vermelho escuro da top-bar */
+    color: rgba(255, 255, 255, 0.5); /* Texto meio transparente/apagado */
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease; /* Transição suave para a cor */
 }
 
-/* Botão "Aceso": Vermelho Lord Zedd */
+/* 2. Definimos como o botão deve brilhar quando estiver ATIVO */
 .stream-selector button.active {
-    background-color: #ff0000; /* Vermelho vivo */
-    color: #ffffff; /* Texto nítido */
-    border: 1px solid #ffffff; 
-    box-shadow: 0 0 15px rgba(255, 0, 0, 0.7); /* Efeito de luz acesa */
+    background-color: #ff0000 !important; /* Vermelho vibrante */
+    color: #ffffff !important; /* Texto branco puro */
+    border: 1px solid #ffffff; /* Borda branca para dar destaque */
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.7); /* Efeito de brilho/luz acesa */
 }
 
-/* Hover para botões apagados */
+/* 3. Feedback visual ao passar o mouse em botões apagados */
 .stream-selector button:hover:not(.active) {
     background-color: #cc0000;
     color: #fff;
