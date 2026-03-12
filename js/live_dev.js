@@ -21,8 +21,22 @@ function updatePlayer(type = 'youtube') {
             break;
     }
 
-    if (newSrc) player.src = newSrc;
+   if (newSrc) player.src = newSrc;
+
+    // 2. Lógica das "Luzes" (Botão Ativo)
+    const buttons = document.querySelectorAll('.stream-selector button');
+    
+    buttons.forEach(btn => {
+        // Remove a classe de todos os botões (apaga a luz)
+        btn.classList.remove('active');
+        
+        // Verifica se o texto do botão é igual ao tipo selecionado (acende a luz)
+        if (btn.innerText.trim().toLowerCase() === type.toLowerCase()) {
+            btn.classList.add('active');
+        }
 }
+
+
 
 // Fechar dropdown ao clicar fora
 document.addEventListener('click', function (event) {
