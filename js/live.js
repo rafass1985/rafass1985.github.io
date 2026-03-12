@@ -8,9 +8,9 @@ const KICK_USER = 'lordzeddbr';
 function updatePlayer(type = 'youtube') {
     let newSrc = "";
 
-    // 1. Define a URL do Iframe
     switch (type) {
         case 'youtube':
+            // Esta URL redireciona para a Live ON ou para o vídeo mais recente/destaque se estiver OFF
             newSrc = `https://www.youtube.com/embed/live_stream?channel=${MY_CHANNEL_ID}&autoplay=1&mute=1&enablejsapi=1`;
             break;
         case 'twitch':
@@ -22,20 +22,6 @@ function updatePlayer(type = 'youtube') {
     }
 
     if (newSrc) player.src = newSrc;
-
-    // 2. Lógica das "Luzes" do Painel
-    const buttons = document.querySelectorAll('.stream-selector button');
-    
-    buttons.forEach(btn => {
-        // Remove a classe active de todos
-        btn.classList.remove('active');
-        
-        // Compara o texto do botão com o tipo selecionado
-        // O trim() ajuda a evitar erros com espaços extras
-        if (btn.innerText.trim().toLowerCase() === type.toLowerCase()) {
-            btn.classList.add('active');
-        }
-    }
 }
 
 // Fechar dropdown ao clicar fora

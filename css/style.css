@@ -74,32 +74,18 @@ body {
 .header-right { display: flex; align-items: center; gap: 15px; }
 .players-label { font-size: 0.8rem; font-weight: bold; }
 
-/* Botão "Apagado": Mesma cor da .top-bar */
 .stream-selector button {
-    background-color: #aa0000; /* Cor da faixa superior */
-    border: 1px solid rgba(255, 255, 255, 0.1); 
-    color: rgba(255, 255, 255, 0.4); /* Texto "apagado" */
+    background-color: #ff0000; /* Vermelho vibrante */
+    border: none;
+    color: white;
     padding: 10px 25px;
     font-weight: bold;
     cursor: pointer;
     margin-left: 10px;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
+    transition: 0.3s;
 }
 
-/* Botão "Aceso": Vermelho Lord Zedd */
-.stream-selector button.active {
-    background-color: #ff0000; /* Vermelho vivo */
-    color: #ffffff; /* Texto nítido */
-    border: 1px solid #ffffff; 
-    box-shadow: 0 0 15px rgba(255, 0, 0, 0.7); /* Efeito de luz acesa */
-}
-
-/* Hover para botões apagados */
-.stream-selector button:hover:not(.active) {
-    background-color: #cc0000;
-    color: #fff;
-}
+.stream-selector button:hover { background-color: #fff; color: #000; }
 
 /* Main Content Area */
 .main-container {
