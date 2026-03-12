@@ -21,23 +21,85 @@ body {
 
 .header-left { display: flex; align-items: center; gap: 40px; }
 .brand-name { font-size: 1.8rem; font-weight: bold; }
-.social-trigger { font-weight: bold; cursor: pointer; }
+
+/* Ajuste para o Dropdown Nativo */
+.social-dropdown {
+    position: relative;
+    z-index: 100;
+}
+
+.social-trigger { 
+    font-weight: bold; 
+    cursor: pointer; 
+    list-style: none; /* Remove a seta padrão do HTML */
+    outline: none;
+}
+
+.social-trigger::-webkit-details-marker {
+    display: none; /* Remove seta no Chrome/Safari */
+}
+
+.dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    margin-top: 15px;
+    padding: 10px 0;
+    border-radius: 12px;
+    min-width: 180px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+}
+
+.dropdown-content a {
+    color: #333;
+    padding: 12px 20px;
+    text-decoration: none;
+    display: block;
+    font-weight: bold;
+    font-size: 0.9rem;
+    animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.dropdown-content a:hover {
+    background-color: #f0f0f0;
+    color: #ff0000;
+}
 
 .header-right { display: flex; align-items: center; gap: 15px; }
 .players-label { font-size: 0.8rem; font-weight: bold; }
 
+/* Botão "Apagado": Mesma cor da .top-bar */
 .stream-selector button {
-    background-color: #ff0000; /* Vermelho vibrante */
-    border: none;
-    color: white;
+    background-color: #aa0000; /* Cor da faixa superior */
+    border: 1px solid rgba(255, 255, 255, 0.1); 
+    color: rgba(255, 255, 255, 0.4); /* Texto "apagado" */
     padding: 10px 25px;
     font-weight: bold;
     cursor: pointer;
     margin-left: 10px;
-    transition: 0.3s;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
 }
 
-.stream-selector button:hover { background-color: #fff; color: #000; }
+/* Botão "Aceso": Vermelho Lord Zedd */
+.stream-selector button.active {
+    background-color: #ff0000; /* Vermelho vivo */
+    color: #ffffff; /* Texto nítido */
+    border: 1px solid #ffffff; 
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.7); /* Efeito de luz acesa */
+}
+
+/* Hover para botões apagados */
+.stream-selector button:hover:not(.active) {
+    background-color: #cc0000;
+    color: #fff;
+}
 
 /* Main Content Area */
 .main-container {
@@ -53,7 +115,7 @@ body {
     position: relative;
     padding-bottom: 56.25%;
     height: 0;
-    background-color: #008ba3; /* Cor do placeholder da sua imagem */
+    background-color: #008ba3; 
 }
 
 .video-wrapper iframe {

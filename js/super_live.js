@@ -23,18 +23,7 @@ function updatePlayer(type = 'youtube') {
 
     if (newSrc) player.src = newSrc;
 }
-// --- NOVA LÓGICA DE CORES DOS BOTÕES ---
-    // Remove a classe 'active' de todos os botões dentro da nav
-    const buttons = document.querySelectorAll('.stream-selector button');
-    buttons.forEach(btn => btn.classList.remove('active'));
 
-    // Adiciona a classe 'active' no botão correspondente
-    // Procuramos o botão que contém o texto da plataforma (ex: 'YOUTUBE')
-    buttons.forEach(btn => {
-        if (btn.innerText.toLowerCase() === type.toLowerCase()) {
-            btn.classList.add('active');
-        }
-        
 // Fechar dropdown ao clicar fora
 document.addEventListener('click', function (event) {
     const dropdown = document.querySelector('.social-dropdown');

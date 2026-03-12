@@ -1,53 +1,50 @@
 const player = document.getElementById('videoMaster');
 
-// Suas IDs atualizadas
+// IDs do seu canal LordZeddBR
 const MY_CHANNEL_ID = 'UCRBaoBV9nCLePTqot4jvYUA';
-// A playlist de uploads usa 'UU' no lugar de 'UC' no início da sua ID
-const UPLOADS_PLAYLIST_ID = 'UURBaoBV9nCLePTqot4jvYUA'; 
+const TWITCH_USER = 'lordzeddbr';
+const KICK_USER = 'lordzeddbr';
 
 function updatePlayer(type = 'youtube') {
     let newSrc = "";
 
+    // 1. Define a URL do Iframe
     switch (type) {
         case 'youtube':
-            /** * A CHECAGEM É FEITA AQUI:
-             * O link /live_stream?channel=ID tenta localizar uma live ativa.
-             * Se você estiver OFFLINE, o player do YouTube redireciona 
-             * internamente para o último vídeo disponível no canal.
-             */
             newSrc = `https://www.youtube.com/embed/live_stream?channel=${MY_CHANNEL_ID}&autoplay=1&mute=1&enablejsapi=1`;
             break;
-
-        case 'video':
-            /**
-             * Caso o redirecionamento acima não funcione como você quer,
-             * este link força a abertura do seu vídeo mais recente 
-             * (o primeiro da playlist de uploads).
-             */
-            newSrc = `https://www.youtube.com/embed/videoseries?list=${UPLOADS_PLAYLIST_ID}&autoplay=1&mute=1`;
-            break;
-
         case 'twitch':
-            newSrc = `https://player.twitch.tv/?channel=lordzeddbr&parent=${window.location.hostname}&autoplay=true`;
+            newSrc = `https://player.twitch.tv/?channel=${TWITCH_USER}&parent=${window.location.hostname}&autoplay=true`;
             break;
-
         case 'kick':
-            newSrc = `https://player.kick.com/lordzeddbr`;
+            newSrc = `https://player.kick.com/${KICK_USER}`;
             break;
     }
-     if (newSrc) player.src = newSrc;
+
+    if (newSrc) player.src = newSrc;
+
+    // 2. Lógica das "Luzes" do Painel
+    const buttons = document.querySelectorAll('.stream-selector button');
+    
+    buttons.forEach(btn => {
+        // Remove a classe active de todos
+        btn.classList.remove('active');
+        
+        // Compara o texto do botão com o tipo selecionado
+        // O trim() ajuda a evitar erros com espaços extras
+        if (btn.innerText.trim().toLowerCase() === type.toLowerCase()) {
+            btn.classList.add('active');
+        }
+    }
 }
 
- // Inicia com o YouTube por padrão
-//window.onload = () => updatePlayer('youtube');
-window.onload = () => updatePlayer('video');
-
-// Fecha o dropdown de sociais ao clicar fora dele
+// Fechar dropdown ao clicar fora
 document.addEventListener('click', function (event) {
     const dropdown = document.querySelector('.social-dropdown');
-    
-    // Se o clique não foi dentro do dropdown e o dropdown está aberto, fecha ele
     if (dropdown && !dropdown.contains(event.target)) {
         dropdown.removeAttribute('open');
     }
 });
+
+// Inicia com o YouTube (Live ou vídeo mais recente) por padrão
+window.onload = () => updatePlayer('youtube');
