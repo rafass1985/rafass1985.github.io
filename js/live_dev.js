@@ -10,6 +10,7 @@ function updatePlayer(type = 'youtube') {
 
     switch (type) {
         case 'youtube':
+            // Esta URL redireciona para a Live ON ou para o vídeo mais recente/destaque se estiver OFF
             newSrc = `https://www.youtube.com/embed/live_stream?channel=${MY_CHANNEL_ID}&autoplay=1&mute=1&enablejsapi=1`;
             break;
         case 'twitch':
@@ -21,8 +22,9 @@ function updatePlayer(type = 'youtube') {
     }
 
     if (newSrc) player.src = newSrc;
+}
 
-    // --- INICIO DA ADIÇÃO: LÓGICA DE BOTÃO ATIVO ---
+// --- INICIO DA ADIÇÃO: LÓGICA DE BOTÃO ATIVO ---
     
     // 1. Selecionamos todos os botões dentro do menu de players
     const buttons = document.querySelectorAll('.stream-selector button');
@@ -39,10 +41,7 @@ function updatePlayer(type = 'youtube') {
             btn.classList.add('active');
         }
     });
-
-    // --- FIM DA ADIÇÃO ---
-}
-
+    
 // Fechar dropdown ao clicar fora
 document.addEventListener('click', function (event) {
     const dropdown = document.querySelector('.social-dropdown');
