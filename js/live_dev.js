@@ -10,7 +10,6 @@ function updatePlayer(type = 'youtube') {
 
     switch (type) {
         case 'youtube':
-            // Esta URL redireciona para a Live ON ou para o vídeo mais recente/destaque se estiver OFF
             newSrc = `https://www.youtube.com/embed/live_stream?channel=${MY_CHANNEL_ID}&autoplay=1&mute=1&enablejsapi=1`;
             break;
         case 'twitch':
@@ -21,22 +20,28 @@ function updatePlayer(type = 'youtube') {
             break;
     }
 
-   if (newSrc) player.src = newSrc;
+    if (newSrc) player.src = newSrc;
 
-    // 2. Lógica das "Luzes" (Botão Ativo)
+    // --- INICIO DA ADIÇÃO: LÓGICA DE BOTÃO ATIVO ---
+    
+    // 1. Selecionamos todos os botões dentro do menu de players
     const buttons = document.querySelectorAll('.stream-selector button');
     
+    // 2. Percorremos cada botão para atualizar o estado visual
     buttons.forEach(btn => {
-        // Remove a classe de todos os botões (apaga a luz)
+        // Removemos a classe 'active' (desliga a luz vermelha de todos)
         btn.classList.remove('active');
         
-        // Verifica se o texto do botão é igual ao tipo selecionado (acende a luz)
+        // Comparamos o texto do botão com o 'type' que a função recebeu
+        // trim() remove espaços bobos e toLowerCase() evita erro de Maiúscula/Minúscula
         if (btn.innerText.trim().toLowerCase() === type.toLowerCase()) {
+            // Se for o botão certo, adicionamos a classe 'active' (acende a luz)
             btn.classList.add('active');
         }
+    });
+
+    // --- FIM DA ADIÇÃO ---
 }
-
-
 
 // Fechar dropdown ao clicar fora
 document.addEventListener('click', function (event) {
