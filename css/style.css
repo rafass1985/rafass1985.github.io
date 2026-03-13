@@ -1,3 +1,4 @@
+/* Configurações Gerais */
 body {
     background-color: #000;
     color: #fff;
@@ -6,37 +7,61 @@ body {
     flex-direction: column;
     height: 100vh;
     font-family: Arial, sans-serif;
+    overflow: hidden; /* Evita barras de rolagem desnecessárias no dashboard */
 }
 
 /* Header / Top Bar */
 .top-bar {
-    background-color: #aa0000; /* Vermelho escuro */
+    background-color: #aa0000; /* Vermelho escuro Lord Zedd */
     height: 70px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
     border-bottom: 3px solid #000;
+    box-sizing: border-box;
 }
 
-.header-left { display: flex; align-items: center; gap: 40px; }
-.brand-name { font-size: 1.8rem; font-weight: bold; }
+.header-left { 
+    display: flex; 
+    align-items: center; 
+    gap: 30px; 
+}
 
-/* Ajuste para o Dropdown Nativo */
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.main-logo {
+    height: 55px; /* Tamanho otimizado para a barra de 70px */
+    width: auto;
+}
+
+.brand-name { 
+    font-size: 1.5rem; 
+    font-weight: bold; 
+    margin-left: 10px;
+}
+
+/* Dropdown de Sociais */
 .social-dropdown {
     position: relative;
-    z-index: 100;
+    z-index: 1000;
 }
 
 .social-trigger { 
     font-weight: bold; 
     cursor: pointer; 
-    list-style: none; /* Remove a seta padrão do HTML */
+    list-style: none; 
     outline: none;
+    padding: 10px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 5px;
 }
 
 .social-trigger::-webkit-details-marker {
-    display: none; /* Remove seta no Chrome/Safari */
+    display: none;
 }
 
 .dropdown-content {
@@ -44,11 +69,17 @@ body {
     top: 100%;
     left: 0;
     background-color: #fff;
-    margin-top: 15px;
+    margin-top: 10px;
     padding: 10px 0;
-    border-radius: 12px;
+    border-radius: 8px;
     min-width: 180px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+    animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .dropdown-content a {
@@ -58,12 +89,6 @@ body {
     display: block;
     font-weight: bold;
     font-size: 0.9rem;
-    animation: fadeIn 0.2s ease-out;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
 }
 
 .dropdown-content a:hover {
@@ -71,58 +96,97 @@ body {
     color: #ff0000;
 }
 
-.header-right { display: flex; align-items: center; gap: 15px; }
-.players-label { font-size: 0.8rem; font-weight: bold; }
-
-.stream-selector button {
-    background-color: #ff0000; /* Vermelho vibrante */
-    border: none;
-    color: white;
-    padding: 10px 25px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-left: 10px;
-    transition: 0.3s;
+/* Seletores de Player (Direita) */
+.header-right { 
+    display: flex; 
+    align-items: center; 
+    gap: 15px; 
 }
 
-.stream-selector button:hover { background-color: #fff; color: #000; }
+.players-label { 
+    font-size: 0.8rem; 
+    font-weight: bold; 
+    letter-spacing: 1px;
+}
 
-/* Main Content Area */
+/* Botões - Estado Padrão (Apagado) */
+.stream-selector button {
+    background-color: #aa0000; /* Mesma cor da barra para camuflar */
+    color: rgba(255, 255, 255, 0.4); /* Texto fosco */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 8px 20px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 8px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    border-radius: 4px;
+}
+
+/* Botões - Estado ATIVO (Aceso) */
+.stream-selector button.active {
+    background-color: #ff0000 !important; /* Vermelho vivo */
+    color: #ffffff !important;
+    border: 1px solid #ffffff;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+    opacity: 1;
+}
+
+.stream-selector button:hover:not(.active) {
+    background-color: #cc0000;
+    color: #fff;
+}
+
+/* Área Principal (Vídeo e Chat) */
 .main-container {
     display: flex;
     flex: 1;
-    padding: 30px;
-    gap: 30px;
-    background-color: #000;
+    padding: 20px;
+    gap: 20px;
+    background-color: #111; /* Fundo levemente cinza para destacar os frames */
 }
 
-.video-section { flex: 2.5; }
+.video-section { 
+    flex: 3; 
+}
+
 .video-wrapper {
     position: relative;
-    padding-bottom: 56.25%;
+    padding-bottom: 56.25%; /* Ratio 16:9 */
     height: 0;
-    background-color: #008ba3; 
+    background-color: #000;
+    border: 2px solid #aa0000;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
 
 .video-wrapper iframe {
     position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
     border: none;
 }
 
 .chat-section {
     flex: 1;
-    background-color: #008ba3;
-    border: none;
+    background-color: #000;
+    border: 2px solid #aa0000;
+    min-width: 300px;
 }
 
-#chatFrame { width: 100%; height: 100%; border: none; }
+#chatFrame { 
+    width: 100%; 
+    height: 100%; 
+    border: none; 
+}
 
 /* Footer */
 .main-footer {
     background-color: #aa0000;
     color: #fff;
-    font-size: 0.7rem;
-    padding: 10px;
+    font-size: 0.75rem;
+    padding: 12px;
     text-align: center;
+    border-top: 2px solid #000;
 }
