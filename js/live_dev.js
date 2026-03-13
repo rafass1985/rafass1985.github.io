@@ -13,6 +13,7 @@ let currentPlatform = 'youtube';
 function updatePlayer(type = 'youtube') {
     let videoSrc = "";
     let chatSrc = "";
+    const currentDomain = window.location.hostname;
     const btnChatUnido = [...document.querySelectorAll('.stream-selector button')].find(b => b.innerText.trim().toLowerCase() === 'chat unido');
 
     // --- LÓGICA DO BOTÃO CHAT UNIDO (TOGGLE) ---
@@ -34,7 +35,7 @@ function updatePlayer(type = 'youtube') {
     switch (type) {
         case 'youtube':
             videoSrc = `https://www.youtube.com/embed/live_stream?channel=${MY_CHANNEL_ID}&autoplay=1&mute=1&enablejsapi=1`;
-            chatSrc = `https://www.youtube.com/live_chat?v=live_stream&embed_domain=${window.location.hostname}&dark_theme=1`;
+            chatSrc = `https://www.youtube.com/live_chat?v=live_stream&embed_domain=${currentDomain}`;
             currentPlatform = 'youtube';
             break;
             

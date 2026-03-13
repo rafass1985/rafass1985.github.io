@@ -159,7 +159,7 @@ button[onclick*="'unificado'"] {
 /* Destaque especial para o CHAT UNIDO quando ativo */
 button[onclick*="'unificado'"].active {
     background-color: #008ba3 !important; /* Cor Ciano/Azul para diferenciar */
-    box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+    box-shadow: 0 0 15px rgba(104, 2, 2, 0.8);
     border-color: #fff;
 }
 
