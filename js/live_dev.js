@@ -7,67 +7,76 @@ const TWITCH_USER = 'lordzeddbr';
 const KICK_USER = 'lordzeddbr';
 const CHAT_UNIFICADO_URL = 'https://socialstream.ninja/dock.html?session=pRftJeqMLi&alignbottom&hidemenu&font=Roboto&color&darkmode&strokecolor=%23ffffff00';
 
+// Variável global para rastrear qual player de vídeo está ativo no momento
+let currentPlatform = 'youtube'; 
+
 function updatePlayer(type = 'youtube') {
     let videoSrc = "";
     let chatSrc = "";
+    const btnChatUnido = [...document.querySelectorAll('.stream-selector button')].find(b => b.innerText.trim().toLowerCase() === 'chat unido');
 
-    // 1. Lógica de URLs
+    // --- LÓGICA DO BOTÃO CHAT UNIDO (TOGGLE) ---
+    if (type === 'unificado') {
+        // Se já estiver ativo, DESLIGA e volta para o chat da plataforma atual
+        if (btnChatUnido.classList.contains('active')) {
+            btnChatUnido.classList.remove('active');
+            type = currentPlatform; // Forçamos o retorno para o chat nativo
+        } else {
+            // Se estiver desligado, LIGA o unificado
+            btnChatUnido.classList.add('active');
+            chatPlayer.src = CHAT_UNIFICADO_URL;
+            return; // Encerra aqui para não trocar o vídeo nem resetar as luzes dos players
+        }
+    }
+
+    // --- LÓGICA DE URLs ---
+    // Se chegamos aqui, ou trocamos de plataforma ou desativamos o Chat Unido
     switch (type) {
         case 'youtube':
             videoSrc = `https://www.youtube.com/embed/live_stream?channel=${MY_CHANNEL_ID}&autoplay=1&mute=1&enablejsapi=1`;
             chatSrc = `https://www.youtube.com/live_chat?v=live_stream&embed_domain=${window.location.hostname}&dark_theme=1`;
+            currentPlatform = 'youtube';
             break;
             
         case 'twitch':
             videoSrc = `https://player.twitch.tv/?channel=${TWITCH_USER}&parent=${window.location.hostname}&autoplay=true`;
             chatSrc = `https://www.twitch.tv/embed/${TWITCH_USER}/chat?parent=${window.location.hostname}&darkpopout`;
+            currentPlatform = 'twitch';
             break;
             
         case 'kick':
             videoSrc = `https://player.kick.com/${KICK_USER}`;
             chatSrc = `https://kick.com/chat/${KICK_USER}`;
-            break;
-
-        case 'unificado':
-            // Apenas troca o chat, mantém o vídeo atual
-            chatSrc = CHAT_UNIFICADO_URL;
+            currentPlatform = 'kick';
             break;
     }
 
-    // 2. Aplica as URLs nos Iframes
-    if (videoSrc) videoPlayer.src = videoSrc;
+    // Aplica as URLs (apenas se houver mudança de vídeo ou retorno de chat)
+    if (videoSrc && videoPlayer.src !== videoSrc) videoPlayer.src = videoSrc;
     if (chatSrc) chatPlayer.src = chatSrc;
 
-    // 3. LÓGICA DE CORES (BOTÕES)
+    // --- ATUALIZAÇÃO DAS LUZES DOS PLAYERS ---
     const buttons = document.querySelectorAll('.stream-selector button');
-
     buttons.forEach(btn => {
         const btnText = btn.innerText.trim().toLowerCase();
-
-        // Se o clique foi no "CHAT UNIDO"
-        if (type === 'unificado') {
-            if (btnText === 'chat unido') {
-                btn.classList.add('active'); // Liga o chat unido
-            } else if (btnText !== 'youtube' && btnText !== 'twitch' && btnText !== 'kick') {
-                // Se houvesse outros botões de chat, limparia aqui
-            }
-            // NOTA: Se clicou em Chat Unido, NÃO removemos o 'active' dos players de vídeo
-        } 
         
-        // Se o clique foi em um Player (YouTube, Twitch ou Kick)
-        else {
-            // Se o botão for um player de vídeo, gerencia o grupo (apenas um ativo)
-            if (['youtube', 'twitch', 'kick'].includes(btnText)) {
-                btn.classList.remove('active');
-                if (btnText === type) btn.classList.add('active');
-            }
-            
-            // Se clicou num player, desliga o "Chat Unido" pois o chat nativo assumiu
-            if (btnText === 'chat unido') {
-                btn.classList.remove('active');
-            }
+        // Gerencia apenas os botões de plataforma (YT, Twitch, Kick)
+        if (['youtube', 'twitch', 'kick'].includes(btnText)) {
+            btn.classList.remove('active');
+            if (btnText === currentPlatform) btn.classList.add('active');
+        }
+        
+        // Ao trocar de plataforma, o Chat Unido deve ser desativado
+        if (type !== 'unificado' && btnText === 'chat unido' && type === currentPlatform) {
+            // Se entramos aqui via clique em plataforma, removemos o active do chat unido
+            // Mas mantemos se foi apenas o toggle acima
         }
     });
+    
+    // Se trocou de player, o chat unido sempre apaga por padrão
+    if (['youtube', 'twitch', 'kick'].includes(type)) {
+        btnChatUnido.classList.remove('active');
+    }
 }
 
 // Fechar dropdown ao clicar fora
