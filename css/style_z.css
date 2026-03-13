@@ -1,4 +1,6 @@
-/* Configurações Gerais */
+/* ==========================================================================
+   CONFIGURAÇÕES GERAIS
+   ========================================================================== */
 body {
     background-color: #000;
     color: #fff;
@@ -6,11 +8,13 @@ body {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    font-family: Arial, sans-serif;
-    overflow: hidden; /* Evita barras de rolagem desnecessárias no dashboard */
+    font-family: 'Segoe UI', Arial, sans-serif;
+    overflow: hidden; /* Evita scroll na página principal */
 }
 
-/* Header / Top Bar */
+/* ==========================================================================
+   HEADER / TOP BAR
+   ========================================================================== */
 .top-bar {
     background-color: #aa0000; /* Vermelho escuro Lord Zedd */
     height: 70px;
@@ -20,6 +24,7 @@ body {
     padding: 0 20px;
     border-bottom: 3px solid #000;
     box-sizing: border-box;
+    z-index: 100;
 }
 
 .header-left { 
@@ -34,20 +39,19 @@ body {
 }
 
 .main-logo {
-    height: 55px; /* Tamanho otimizado para a barra de 70px */
+    height: 55px;
     width: auto;
 }
 
 .brand-name { 
     font-size: 1.5rem; 
-    font-weight: bold; 
-    margin-left: 10px;
+    font-weight: bold;
 }
 
 /* Dropdown de Sociais */
 .social-dropdown {
     position: relative;
-    z-index: 1000;
+    z-index: 1001;
 }
 
 .social-trigger { 
@@ -55,9 +59,14 @@ body {
     cursor: pointer; 
     list-style: none; 
     outline: none;
-    padding: 10px;
-    background: rgba(0,0,0,0.2);
-    border-radius: 5px;
+    padding: 8px 15px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 4px;
+    transition: 0.3s;
+}
+
+.social-trigger:hover {
+    background: rgba(0,0,0,0.5);
 }
 
 .social-trigger::-webkit-details-marker {
@@ -68,12 +77,12 @@ body {
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: #fff;
+    background-color: #ffffff;
     margin-top: 10px;
-    padding: 10px 0;
+    padding: 8px 0;
     border-radius: 8px;
     min-width: 180px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.6);
     animation: fadeIn 0.2s ease-out;
 }
 
@@ -96,40 +105,62 @@ body {
     color: #ff0000;
 }
 
-/* Seletores de Player (Direita) */
+/* ==========================================================================
+   SELETORES DE PLAYER E CHAT (header-right)
+   ========================================================================== */
 .header-right { 
     display: flex; 
     align-items: center; 
-    gap: 15px; 
+    gap: 10px; 
 }
 
 .players-label { 
-    font-size: 0.8rem; 
+    font-size: 0.75rem; 
     font-weight: bold; 
     letter-spacing: 1px;
+    color: rgba(255,255,255,0.8);
+}
+
+.stream-selector {
+    display: flex;
+    align-items: center;
 }
 
 /* Botões - Estado Padrão (Apagado) */
 .stream-selector button {
-    background-color: #aa0000; /* Mesma cor da barra para camuflar */
-    color: rgba(255, 255, 255, 0.4); /* Texto fosco */
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 8px 20px;
+    background-color: #aa0000;
+    color: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    padding: 8px 18px;
     font-weight: bold;
     cursor: pointer;
-    margin-left: 8px;
+    margin-left: 5px;
     transition: all 0.3s ease;
     text-transform: uppercase;
+    font-size: 0.8rem;
     border-radius: 4px;
 }
 
-/* Botões - Estado ATIVO (Aceso) */
+/* Botão Específico: CHAT UNIDO */
+button[onclick*="'unificado'"] {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* Efeito de Botão ATIVO (Aceso) */
 .stream-selector button.active {
-    background-color: #ff0000 !important; /* Vermelho vivo */
+    background-color: #ff0000 !important;
     color: #ffffff !important;
     border: 1px solid #ffffff;
     box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
     opacity: 1;
+}
+
+/* Destaque especial para o CHAT UNIDO quando ativo */
+button[onclick*="'unificado'"].active {
+    background-color: #008ba3 !important; /* Cor Ciano/Azul para diferenciar */
+    box-shadow: 0 0 15px rgba(0, 139, 163, 0.8);
+    border-color: #fff;
 }
 
 .stream-selector button:hover:not(.active) {
@@ -137,13 +168,16 @@ body {
     color: #fff;
 }
 
-/* Área Principal (Vídeo e Chat) */
+/* ==========================================================================
+   ÁREA PRINCIPAL (VÍDEO E CHAT)
+   ========================================================================== */
 .main-container {
     display: flex;
     flex: 1;
     padding: 20px;
     gap: 20px;
-    background-color: #111; /* Fundo levemente cinza para destacar os frames */
+    background-color: #000;
+    box-sizing: border-box;
 }
 
 .video-section { 
@@ -152,19 +186,16 @@ body {
 
 .video-wrapper {
     position: relative;
-    padding-bottom: 56.25%; /* Ratio 16:9 */
+    padding-bottom: 56.25%; /* 16:9 */
     height: 0;
     background-color: #000;
     border: 2px solid #aa0000;
-    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.1);
 }
 
 .video-wrapper iframe {
     position: absolute;
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%;
+    top: 0; left: 0; width: 100%; height: 100%;
     border: none;
 }
 
@@ -172,21 +203,25 @@ body {
     flex: 1;
     background-color: #000;
     border: 2px solid #aa0000;
-    min-width: 300px;
+    min-width: 350px;
+    display: flex;
 }
 
 #chatFrame { 
     width: 100%; 
     height: 100%; 
-    border: none; 
+    border: none;
 }
 
-/* Footer */
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
 .main-footer {
     background-color: #aa0000;
     color: #fff;
-    font-size: 0.75rem;
-    padding: 12px;
+    font-size: 0.7rem;
+    padding: 10px 20px;
     text-align: center;
     border-top: 2px solid #000;
+    line-height: 1.4;
 }
